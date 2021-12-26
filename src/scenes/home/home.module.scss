@@ -1,0 +1,80 @@
+.root {
+  display: flex;
+  width: 100%;
+  max-height: calc(100vh);
+  min-height: calc(100vh);
+  overflow: hidden;
+  padding-top: 20px;
+}
+
+.filterViewWrapper {
+  flex: 0.4;
+  max-width: 400px;
+  padding: 10px 15px 10px 20px;
+  background-color: white;
+}
+
+.callsWrapper {
+  overflow-y: auto;
+  flex: 1;
+  padding: 0 10px 10px 10px;
+}
+
+.sortBox {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 5px 10px;
+  margin-bottom: 2px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+
+  h4 {
+    margin: 0;
+    width: 80px;
+  }
+}
+
+.callItem {
+}
+
+
+.tableWrapper {
+  padding: 10px 10px 10px 0px;
+  overflow-x: auto;
+
+  table: {
+    background-color: white;
+    border-spacing: 0;
+    border-radius: 2px;
+  }
+
+  .codesCell {
+    text-align: left;
+  }
+
+  .codesSelectable {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 7px;
+    flex-wrap: wrap;
+  }
+
+  tr {
+    :last-child {
+      td {
+        border-bottom: 0;
+      }
+    }
+    &:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  }
+
+  th,td {
+    white-space: pre-line;
+    text-align: center;
+    margin: 0;
+    padding: 0.8rem;
+  }
+}
