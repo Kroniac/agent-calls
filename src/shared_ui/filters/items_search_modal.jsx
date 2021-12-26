@@ -1,19 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { Modal, Input, Button, Checkbox } from 'antd';
+import {
+  arrayOf,
+  oneOfType,
+  shape,
+  string,
+  number,
+  bool,
+  array,
+  object,
+  func,
+} from 'prop-types';
 
-function ItemsSearchModal({ items, onFilter, isVisible, onHide }) {
+function ItemsSearchModal({ items, onFilter, isVisible, onHide, onClearAll }) {
   const [filteredItems, setFilteredItems] = useState([]);
   const allItems = useRef(items);
+  const textInputRef = useRef();
 
   useEffect(() => {
     if (isVisible) {
+      textInputRef.current.state.value = '';
+      textInputRef.current.focus();
       setFilteredItems(items);
       allItems.current = items;
     }
-  }, [isVisible, items]);
 
-  const textInputRef = useRef();
+    return () => {};
+  }, [isVisible, items]);
 
   const onChangeText = e => {
     setFilteredItems(getFilteredItems(e.target.value));
@@ -39,6 +53,11 @@ function ItemsSearchModal({ items, onFilter, isVisible, onHide }) {
     onHide();
   };
 
+  const onClearAllHandler = () => {
+    onClearAll();
+    onHide();
+  };
+
   return (
     <Modal
       title={
@@ -52,7 +71,7 @@ function ItemsSearchModal({ items, onFilter, isVisible, onHide }) {
       }
       visible={isVisible}
       onOk={onFilterHandler}
-      onCancel={() => {}}
+      onCancel={onClearAllHandler}
       bodyStyle={{ padding: 12 }}
       onClose={onHide}
       closeIcon={<Button onClick={onHide}>X</Button>}
@@ -69,7 +88,7 @@ function ItemsSearchModal({ items, onFilter, isVisible, onHide }) {
         }}
       >
         {filteredItems.map(el => (
-          <div>
+          <div key={el.key}>
             <Checkbox checked={el.isSelected} onChange={() => onSelectItem(el)}>
               {el.title}
             </Checkbox>
@@ -79,5 +98,20 @@ function ItemsSearchModal({ items, onFilter, isVisible, onHide }) {
     </Modal>
   );
 }
+
+ItemsSearchModal.propTypes = {
+  items: arrayOf(
+    shape({
+      title: string.isRequired,
+      id: oneOfType([number, string]).isRequired,
+      isSelected: bool.isRequired,
+      item: oneOfType([number, string, object, array]).isRequired,
+    }),
+  ).isRequired,
+  onFilter: func.isRequired,
+  isVisible: bool.isRequired,
+  onHide: func.isRequired,
+  onClearAll: func.isRequired,
+};
 
 export default ItemsSearchModal;
