@@ -53,7 +53,7 @@ function Calls({ calls, selectedCallsById, onSelectCall }) {
                 {item.call_id in selectedCallsById ? (
                   <ImCheckboxChecked color={COLORS.GREEN} />
                 ) : (
-                  <ImCheckboxUnchecked />
+                  <ImCheckboxUnchecked color="dimgrey" />
                 )}
               </div>
             }
