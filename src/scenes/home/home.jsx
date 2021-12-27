@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 
-import { Radio, Spin } from 'antd';
+import { Radio, Spin, Result, Button } from 'antd';
 import QueryString from 'query-string';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { AppContext } from 'src/libs/context_api';
+import { GetStatusCode } from 'src/libs/networking';
 import {
   FetchAgentCalls,
   FetchAgents,
@@ -18,7 +19,7 @@ import Styles from './home.module.scss';
 function Home() {
   const [agentCalls, setAgentCalls] = useState([]);
   const [currSortBy, setCurrSortBy] = useState('');
-  const [loadingState, setLoadingState] = useState({ state: 0, err: null });
+  const [loadingState, setLoadingState] = useState({ state: 0, data: null });
 
   const history = useHistory();
   const location = useLocation();
@@ -31,6 +32,7 @@ function Home() {
   }, []);
 
   initialSetup.current = async () => {
+    setLoadingState({ state: 0, data: null });
     const config = await getAgentCallsConfig().catch(() => {});
     if (!config) return;
     const params = getInitialQueryParams(config);
@@ -61,7 +63,7 @@ function Home() {
           resolve(config);
         })
         .catch(err => {
-          setLoadingState({ state: 2, err });
+          setLoadingState({ state: 2, data: err });
           reject(err);
         });
     });
@@ -121,7 +123,7 @@ function Home() {
   });
 
   const onFetchAgentCalls = (params, sortBy = currSortBy) => {
-    setLoadingState({ state: 0, err: null });
+    setLoadingState({ state: 0, data: null });
     history.push({
       pathname: '/home',
       search: QueryString.stringify(params),
@@ -135,12 +137,28 @@ function Home() {
           const sortedCalls = [...res.data.data].sort(sortFn);
           setAgentCalls(sortedCalls);
         }
-        setLoadingState({ state: 2, err: null });
+        setLoadingState({ state: 2, data: null });
       })
       .catch(err => {
-        setLoadingState({ state: 1, err });
+        setLoadingState({ state: 1, data: err });
       });
   };
+
+  if (loadingState.state === 1) {
+    return (
+      <div className={Styles.errWrapper}>
+        <Result
+          status="500"
+          title={`Error ${GetStatusCode(loadingState.data)}`}
+          extra={
+            <Button onClick={initialSetup.current} size="large" type="primary">
+              Retry
+            </Button>
+          }
+        />
+      </div>
+    );
+  }
 
   return (
     <Spin tip="Loading..." spinning={loadingState.state === 0}>
