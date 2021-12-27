@@ -13,7 +13,14 @@ import {
   func,
 } from 'prop-types';
 
-function ItemsSearchModal({ items, onFilter, isVisible, onHide, onClearAll }) {
+function ItemsSearchModal({
+  items,
+  onFilter,
+  isVisible,
+  onHide,
+  onClearAll,
+  inputPlaceholder,
+}) {
   const [filteredItems, setFilteredItems] = useState([]);
   const allItems = useRef(items);
   const textInputRef = useRef();
@@ -64,7 +71,7 @@ function ItemsSearchModal({ items, onFilter, isVisible, onHide, onClearAll }) {
         <div style={{ maxWidth: 200 }}>
           <Input
             ref={textInputRef}
-            placeholder="Search Agents"
+            placeholder={inputPlaceholder}
             onChange={onChangeText}
           />
         </div>
@@ -74,12 +81,14 @@ function ItemsSearchModal({ items, onFilter, isVisible, onHide, onClearAll }) {
       onCancel={onClearAllHandler}
       bodyStyle={{ padding: 12 }}
       onClose={onHide}
+      cancelText="Clear All"
+      okText="Search"
       closeIcon={<Button onClick={onHide}>X</Button>}
     >
       <div
         style={{
           height: 200,
-          overflow: 'scroll',
+          overflowX: 'scroll',
           flexDirection: 'column',
           display: 'flex',
           flexWrap: 'wrap',
@@ -88,7 +97,7 @@ function ItemsSearchModal({ items, onFilter, isVisible, onHide, onClearAll }) {
         }}
       >
         {filteredItems.map(el => (
-          <div key={el.key}>
+          <div key={el.id}>
             <Checkbox checked={el.isSelected} onChange={() => onSelectItem(el)}>
               {el.title}
             </Checkbox>
@@ -112,6 +121,11 @@ ItemsSearchModal.propTypes = {
   isVisible: bool.isRequired,
   onHide: func.isRequired,
   onClearAll: func.isRequired,
+  inputPlaceholder: string,
+};
+
+ItemsSearchModal.defaultProps = {
+  inputPlaceholder: 'Search',
 };
 
 export default ItemsSearchModal;

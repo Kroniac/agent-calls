@@ -120,7 +120,7 @@ function ItemsSearch({ items, title, inputPlaceholder, onFilter }) {
         block
         onClick={onShowMoreAgents}
       >
-        Some More
+        Some More (multi-select)
       </Button>
       <ItemsSearchModal
         isVisible={showSearchModal}
@@ -128,6 +128,7 @@ function ItemsSearch({ items, title, inputPlaceholder, onFilter }) {
         onFilter={onFilterHandler}
         onHide={onHideSearchModal}
         onClearAll={onClearAll}
+        inputPlaceholder={inputPlaceholder}
       />
     </div>
   );
