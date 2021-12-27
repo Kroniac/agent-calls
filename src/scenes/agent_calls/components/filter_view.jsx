@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 
 import { Slider } from 'antd';
-import { shape, number, string, bool, arrayOf } from 'prop-types';
+import { shape, number, string, arrayOf, func } from 'prop-types';
 import QueryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 
@@ -38,7 +38,7 @@ function FilterView({ agents, durationRange, onFilter }) {
     onFilter(filters.current);
   };
 
-  const onAgentsFilter = (filteredAgents, isUpdated) => {
+  const onAgentsFilter = filteredAgents => {
     filters.current = {
       ...filters.current,
       filter_agent_list: filteredAgents.map(el => el.id),
@@ -81,6 +81,7 @@ FilterView.propTypes = {
     minimum: number,
     maximum: number,
   }),
+  onFilter: func.isRequired,
 };
 
 FilterView.defaultProps = {
