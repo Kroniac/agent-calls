@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 
 import { ItemsSearchSchema } from 'src/schemas/filters';
 import ItemsSearch from 'src/shared_ui/filters/items_search';
+import SidebarSkeleton from 'src/shared_ui/layout/sidebar_skeleton';
 
 import Styles from '../home.module.scss';
 
@@ -68,7 +69,7 @@ function FilterView({ agents, durationRange, onFilter }) {
   };
 
   return (
-    <section className={Styles.filterViewWrapper}>
+    <SidebarSkeleton>
       <h4>Call Duration</h4>
       <Slider
         ref={sliderRef}
@@ -89,7 +90,7 @@ function FilterView({ agents, durationRange, onFilter }) {
         items={agentItems}
         onFilter={onAgentsFilter}
       />
-    </section>
+    </SidebarSkeleton>
   );
 }
 

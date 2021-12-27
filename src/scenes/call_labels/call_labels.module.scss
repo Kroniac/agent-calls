@@ -21,7 +21,11 @@
 .callsWrapper {
   overflow-y: auto;
   flex: 1;
-  padding: 0 10px 10px 7px;
+  padding: 0 10px 30px 7px;
+
+  @media screen and (max-width: 600px) {
+    margin-left: 30px;
+  }
 
   .headerBar {
     display: flex;
@@ -36,10 +40,4 @@
       margin: 0;
     }
   }
-}
-
-.manageLabelWrapper {
-  width: 300px;
-  padding: 10px 15px 10px 20px;
-  background-color: white;
 }

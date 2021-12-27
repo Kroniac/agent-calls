@@ -1,67 +1,14 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { Button, Tag } from 'antd';
+import { AiOutlineSetting } from 'react-icons/ai';
 import { v4 as uuidv4 } from 'uuid';
 
 import COLORS from 'src/config/colors';
 import AddRemoveAutocomplete from 'src/shared_ui/input/add_remove_autocomplete';
+import SidebarSkeleton from 'src/shared_ui/layout/sidebar_skeleton';
 
 import Styles from '../call_labels.module.scss';
-
-const options = [
-  'abe',
-  'andes',
-  'arabian',
-  'arctic',
-  'atacama',
-  'atlantic',
-  'australia',
-  'canada',
-  'caspian',
-  'cuba',
-  'denmark',
-  'egypt',
-  'engineering',
-  'everest',
-  'geography',
-  'germany',
-  'graduation',
-  'ham',
-  'himalaya',
-  'hongkong',
-  'indian',
-  'japan',
-  'kenya',
-  'london',
-  'maths',
-  'modi',
-  'mountain',
-  'newyork',
-  'norway',
-  'obama',
-  'pacific',
-  'peninsula',
-  'phd',
-  'plain',
-  'plateau',
-  'politics',
-  'randm',
-  'red',
-  'rocky',
-  'russia',
-  'sahara',
-  'science',
-  'spam',
-  'switzerland',
-  'syberia',
-  'sydney',
-  'thar',
-  'trump',
-  'unnown',
-  'unread',
-  'usa',
-  'vietnam',
-];
 
 const SelectedLabelsSchema = (value, operation, uuid = uuidv4()) => ({
   name: value,
@@ -74,10 +21,17 @@ const SELECT_OPERATION = {
   REMOVE: 'remove',
 };
 
-function ManageLabels({ onApplyLabels }) {
+function ManageLabels({ options, onApplyLabels }) {
   const [selectedLabels, setSelectedLabels] = useState([]);
   const [filteredLabels, setFilteredLabels] = useState(options);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false); // only for small screens;
   const allLabels = useRef(options);
+
+  useEffect(() => {
+    allLabels.current = options;
+    console.log(options);
+    setFilteredLabels(getFilteredItems(''));
+  }, [options]);
 
   const onSelectLabel = (item, operation) => {
     setSelectedLabels(prev => [...prev, SelectedLabelsSchema(item, operation)]);
@@ -109,7 +63,7 @@ function ManageLabels({ onApplyLabels }) {
   };
 
   return (
-    <section className={Styles.manageLabelWrapper}>
+    <SidebarSkeleton>
       <h4>Manage Labels</h4>
       <AddRemoveAutocomplete
         options={filteredLabels}
@@ -140,7 +94,7 @@ function ManageLabels({ onApplyLabels }) {
           </Tag>
         ))}
       </div>
-    </section>
+    </SidebarSkeleton>
   );
 }
 
