@@ -10,6 +10,7 @@ function Calls({ calls }) {
       size="small"
       pagination={{
         showSizeChanger: true,
+        defaultPageSize: 15,
       }}
       grid={{
         column: 3,
@@ -25,7 +26,7 @@ function Calls({ calls }) {
           className={Styles.callItem}
           style={{ width: '100%', padding: 0, marginBottom: 5 }}
         >
-          <Card title={item.agent_id}>
+          <Card size="small" title={item.agent_id}>
             <div>{item.call_time}</div>
           </Card>
         </List.Item>
