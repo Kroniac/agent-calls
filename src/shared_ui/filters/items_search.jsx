@@ -12,8 +12,6 @@ import {
   object,
   func,
 } from 'prop-types';
-import QueryString from 'query-string';
-import { useLocation } from 'react-router-dom';
 
 import Styles from './filters.module.scss';
 import ItemsSearchModal from './items_search_modal';
