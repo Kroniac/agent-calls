@@ -1,6 +1,15 @@
 import React from 'react';
 
 import { List, Card, Tag } from 'antd';
+import {
+  arrayOf,
+  shape,
+  number,
+  string,
+  objectOf,
+  object,
+  func,
+} from 'prop-types';
 import { ImCheckboxUnchecked, ImCheckboxChecked } from 'react-icons/im';
 
 import COLORS from 'src/config/colors';
@@ -51,7 +60,9 @@ function Calls({ calls, selectedCallsById, onSelectCall }) {
           >
             <div style={{ maxHeight: 100, overflowY: 'auto' }}>
               {item.label_id.map(el => (
-                <Tag style={{ margin: '2px 4px 2px 0' }}>{el}</Tag>
+                <Tag key={el} style={{ margin: '2px 4px 2px 0' }}>
+                  {el}
+                </Tag>
               ))}
               {!item.label_id.length ? 'No Labels Linked' : ''}
             </div>
@@ -61,5 +72,16 @@ function Calls({ calls, selectedCallsById, onSelectCall }) {
     />
   );
 }
+
+Calls.propTypes = {
+  calls: arrayOf(
+    shape({
+      call_id: number.isRequired,
+      label_id: arrayOf(string).isRequired,
+    }),
+  ),
+  selectedCallsById: objectOf(object).isRequired,
+  onSelectCall: func.isRequired,
+};
 
 export default Calls;

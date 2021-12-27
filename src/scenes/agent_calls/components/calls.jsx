@@ -2,7 +2,7 @@ import React from 'react';
 
 import { List, Card } from 'antd';
 
-import Styles from '../home.module.scss';
+import Styles from '../agent_calls.module.scss';
 
 function Calls({ calls }) {
   return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 
-import { Radio, Spin, Result, Button } from 'antd';
+import { Spin, Result, Button } from 'antd';
 import QueryString from 'query-string';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -12,11 +12,12 @@ import {
   FetchDurationRanges,
 } from 'src/server_reqs/agent_calls';
 
+import Styles from './agent_calls.module.scss';
 import Calls from './components/calls';
 import FilterView from './components/filter_view';
-import Styles from './home.module.scss';
+import SortBox from './components/sort_box';
 
-function Home() {
+function AgentCalls() {
   const [agentCalls, setAgentCalls] = useState([]);
   const [currSortBy, setCurrSortBy] = useState('');
   const [loadingState, setLoadingState] = useState({ state: 0, data: null });
@@ -71,7 +72,14 @@ function Home() {
   const getInitialQueryParams = config => {
     const params = QueryString.parse(location.search);
 
-    if (params.filter_agent_list && params.filter_time_range) return params;
+    if (
+      params.filter_agent_list &&
+      params.filter_time_range &&
+      Array.isArray(params.filter_agent_list) &&
+      Array.isArray(params.filter_time_range)
+    )
+      return params;
+
     const { maximum, minimum } = config.durationRange;
     return {
       filter_agent_list: config.agents.slice(0, 2),
@@ -101,7 +109,7 @@ function Home() {
     if (currSortBy === sortBy) return;
     const params = QueryString.parse(location.search);
     history.push({
-      pathname: '/home',
+      pathname: '/agent_calls',
       search: QueryString.stringify({
         ...params,
         sortBy,
@@ -125,7 +133,7 @@ function Home() {
   const onFetchAgentCalls = (params, sortBy = currSortBy) => {
     setLoadingState({ state: 0, data: null });
     history.push({
-      pathname: '/home',
+      pathname: '/agent_calls',
       search: QueryString.stringify(params),
     });
 
@@ -177,28 +185,4 @@ function Home() {
   );
 }
 
-function SortBox({ selectedItem, onSort }) {
-  const onChange = e => {
-    onSort(e.target.value);
-  };
-
-  return (
-    <div className={Styles.sortBox}>
-      <h4>Sort By</h4>
-      <Radio.Group size="small" value={selectedItem} onChange={onChange}>
-        {[
-          'Agents a-z',
-          'Agents z-a',
-          'Call Time - Low to High',
-          'Call Time - High to Low',
-        ].map(item => (
-          <Radio.Button key={item} size="small" value={item}>
-            {item}
-          </Radio.Button>
-        ))}
-      </Radio.Group>
-    </div>
-  );
-}
-
-export default Home;
+export default AgentCalls;
