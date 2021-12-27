@@ -45,7 +45,7 @@ function CallLabels() {
       FetchCallLabels()
         .then(res => {
           const config = {
-            labels: res.data.data,
+            labels: res.data.data.unique_label_list,
           };
           appContext.updateCallLabelsConfig(config);
           resolve(config);
@@ -177,7 +177,10 @@ function CallLabels() {
   return (
     <Spin tip="Loading..." spinning={loadingState.state === 0}>
       <div className={Styles.root}>
-        <ManageLabels onApplyLabels={onApplyLabels} />
+        <ManageLabels
+          options={appContext.callLabelsConfig?.labels || []}
+          onApplyLabels={onApplyLabels}
+        />
         <section className={Styles.callsWrapper}>
           <div className={Styles.headerBar}>
             <h4>Selected Calls:</h4>
