@@ -1,7 +1,15 @@
 import React, { useRef, useEffect, useState } from 'react';
 
 import { Slider } from 'antd';
-import { shape, number, string, arrayOf, func } from 'prop-types';
+import {
+  shape,
+  number,
+  string,
+  arrayOf,
+  func,
+  objectOf,
+  array,
+} from 'prop-types';
 import QueryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 
@@ -12,7 +20,7 @@ import {
 import ItemsSearch from 'src/shared_ui/filters/items_search';
 import SidebarSkeleton from 'src/shared_ui/layout/sidebar_skeleton';
 
-function FilterView({ agents, durationRange, onFilter }) {
+function FilterView({ agents, durationRange, onFilter, manualParams }) {
   const [agentItems, setAgentItems] = useState([]);
   const filters = useRef({});
   const location = useLocation();
@@ -29,6 +37,15 @@ function FilterView({ agents, durationRange, onFilter }) {
       maxRange,
     ]);
   }, [agents, durationRange]);
+
+  useEffect(() => {
+    filters.current = manualParams;
+    setAgentItems(GetAgentsFromQueryParams(manualParams, agents));
+    sliderRef.current.state.bounds = GetDurationFromParams(manualParams, [
+      minRange,
+      maxRange,
+    ]);
+  }, [manualParams]);
 
   const onCallDurationChange = duration => {
     filters.current = {
@@ -82,6 +99,7 @@ FilterView.propTypes = {
     maximum: number,
   }),
   onFilter: func.isRequired,
+  manualParams: objectOf(array).isRequired,
 };
 
 FilterView.defaultProps = {

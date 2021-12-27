@@ -21,6 +21,7 @@ function AgentCalls() {
   const [agentCalls, setAgentCalls] = useState([]);
   const [currSortBy, setCurrSortBy] = useState('');
   const [loadingState, setLoadingState] = useState({ state: 0, data: null });
+  const [manualParams, setManualParams] = useState({});
 
   const history = useHistory();
   const location = useLocation();
@@ -81,13 +82,15 @@ function AgentCalls() {
       return params;
 
     const { maximum, minimum } = config.durationRange;
-    return {
+    const manualQParams = {
       filter_agent_list: config.agents.slice(0, 2),
       filter_time_range: [
         config.durationRange.minimum,
         Math.random() * (maximum - minimum + 1) + (minimum + 1),
       ],
     };
+    setManualParams(manualQParams);
+    return manualQParams;
   };
 
   const getSortFn = sortBy => {
@@ -172,6 +175,7 @@ function AgentCalls() {
     <Spin tip="Loading..." spinning={loadingState.state === 0}>
       <div className={Styles.root}>
         <FilterView
+          manualParams={manualParams}
           onFilter={onFetchAgentCalls}
           agents={appContext.agentCallsConfig?.agents || []}
           durationRange={appContext.agentCallsConfig?.durationRange || {}}
