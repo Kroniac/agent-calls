@@ -13,6 +13,7 @@ import {
 import Styles from './call_labels.module.scss';
 import Calls from './components/calls';
 import ManageLabels from './components/manage_labels';
+import TopBar from './components/top_bar';
 
 function CallLabels() {
   const [calls, setCalls] = useState([]);
@@ -185,19 +186,12 @@ function CallLabels() {
           onApplyLabels={onApplyLabels}
         />
         <section className={Styles.callsWrapper}>
-          <div className={Styles.headerBar}>
-            <h4>Selected Calls:</h4>
-            <h4 style={{ marginLeft: 5 }}>{`${getSelectedCallsCount()} / ${
-              calls.length
-            }`}</h4>
-            <Button
-              style={{ marginLeft: 10 }}
-              onClick={!isAllCallsSelected ? onSelectAll : onUnSelectAll}
-              size="small"
-            >
-              {!isAllCallsSelected ? 'Select All' : 'Unselect All'}
-            </Button>
-          </div>
+          <TopBar
+            selectedCallsText={`${getSelectedCallsCount()} / ${calls.length}`}
+            isAllCallsSelected={isAllCallsSelected}
+            onSelectAll={onSelectAll}
+            onUnSelectAll={onUnSelectAll}
+          />
           <Calls
             calls={calls}
             selectedCallsById={selectedCallsById}

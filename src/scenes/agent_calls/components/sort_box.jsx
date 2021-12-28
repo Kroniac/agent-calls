@@ -4,6 +4,7 @@ import { Radio } from 'antd';
 import { string, func } from 'prop-types';
 
 import Styles from '../agent_calls.module.scss';
+import { AGENT_CALLS_SORT_BYS } from '../constants';
 
 function SortBox({ selectedItem, onSort }) {
   const onChange = e => {
@@ -14,12 +15,7 @@ function SortBox({ selectedItem, onSort }) {
     <div className={Styles.sortBox}>
       <h4>Sort By</h4>
       <Radio.Group size="small" value={selectedItem} onChange={onChange}>
-        {[
-          'Agents a-z',
-          'Agents z-a',
-          'Call Time - Low to High',
-          'Call Time - High to Low',
-        ].map(item => (
+        {AGENT_CALLS_SORT_BYS.map(item => (
           <Radio.Button key={item} size="small" value={item}>
             {item}
           </Radio.Button>

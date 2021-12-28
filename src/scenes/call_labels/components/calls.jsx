@@ -25,7 +25,7 @@ function Calls({ calls, selectedCallsById, onSelectCall }) {
         defaultPageSize: 12,
       }}
       grid={{
-        column: 4,
+        column: 3,
         md: 2,
         sm: 1,
         xs: 1,

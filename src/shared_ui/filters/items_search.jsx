@@ -25,17 +25,31 @@ function ItemsSearch({ items, title, inputPlaceholder, onFilter }) {
 
   useEffect(() => {
     allItems.current = items;
-    setFilteredItems(allItems.current);
+    setFilteredItems(getFilteredItems(''));
   }, [items]);
 
   const onChangeAgentText = e => {
     setFilteredItems(getFilteredItems(e.target.value));
   };
 
+  const pushSelectedItemsToTop = nItems => {
+    const selectedItems = [];
+    const otherItems = [];
+    nItems.forEach(item => {
+      if (item.isSelected) selectedItems.push(item);
+      else otherItems.push(item);
+    });
+
+    return [...selectedItems, ...otherItems];
+  };
+
   const getFilteredItems = query => {
-    if (!query) return allItems.current;
-    return allItems.current.filter(el =>
-      el.title.toLowerCase().includes(query.toLowerCase()),
+    if (!query) return pushSelectedItemsToTop(allItems.current);
+
+    return pushSelectedItemsToTop(
+      allItems.current.filter(el =>
+        el.title.toLowerCase().includes(query.toLowerCase()),
+      ),
     );
   };
 

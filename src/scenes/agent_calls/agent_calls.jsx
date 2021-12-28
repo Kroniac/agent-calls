@@ -4,6 +4,10 @@ import { Spin, Result, Button } from 'antd';
 import QueryString from 'query-string';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import {
+  GetDefaultFiltersFromConfig,
+  GetFiltersFromParams,
+} from 'src/libs/agent_calls';
 import { AppContext } from 'src/libs/context_api';
 import { GetStatusCode } from 'src/libs/networking';
 import {
@@ -16,6 +20,7 @@ import Styles from './agent_calls.module.scss';
 import Calls from './components/calls';
 import FilterView from './components/filter_view';
 import SortBox from './components/sort_box';
+import { AGENT_CALLS_SORT_BY } from './constants';
 
 function AgentCalls() {
   const [agentCalls, setAgentCalls] = useState([]);
@@ -74,35 +79,23 @@ function AgentCalls() {
   const getInitialQueryParams = config => {
     const params = QueryString.parse(location.search);
 
-    if (
-      params.filter_agent_list &&
-      params.filter_time_range &&
-      Array.isArray(params.filter_agent_list) &&
-      Array.isArray(params.filter_time_range)
-    )
-      return params;
+    const filtersFromParams = GetFiltersFromParams(params);
+    if (filtersFromParams) return filtersFromParams;
 
-    const { maximum, minimum } = config.durationRange;
-    const manualQParams = {
-      filter_agent_list: config.agents.slice(0, 2),
-      filter_time_range: [
-        config.durationRange.minimum,
-        Math.random() * (maximum - minimum + 1) + (minimum + 1),
-      ],
-    };
-    setManualParams(manualQParams);
-    return manualQParams;
+    const defaultParams = GetDefaultFiltersFromConfig(config);
+    setManualParams(defaultParams);
+    return defaultParams;
   };
 
   const getSortFn = sortBy => {
     switch (sortBy) {
-      case 'Agents a-z':
+      case AGENT_CALLS_SORT_BY.AGENTS_A_Z:
         return (a, b) => a.agent_id.localeCompare(b.agent_id);
-      case 'Agents z-a':
+      case AGENT_CALLS_SORT_BY.AGENTS_Z_A:
         return (a, b) => b.agent_id.localeCompare(a.agent_id);
-      case 'Call Time - Low to High':
+      case AGENT_CALLS_SORT_BY.CALL_TIME_LOW_TO_HIGH:
         return (a, b) => a.call_time - b.call_time;
-      case 'Call Time - High to Low':
+      case AGENT_CALLS_SORT_BY.CALL_TIME_HIGH_TO_LOW:
         return (a, b) => b.call_time - a.call_time;
       default:
         return null;
