@@ -14,8 +14,6 @@ import { ImCheckboxUnchecked, ImCheckboxChecked } from 'react-icons/im';
 
 import COLORS from 'src/config/colors';
 
-import Styles from '../call_labels.module.scss';
-
 function Calls({ calls, selectedCallsById, onSelectCall }) {
   return (
     <List
@@ -35,8 +33,12 @@ function Calls({ calls, selectedCallsById, onSelectCall }) {
       renderItem={item => (
         <List.Item
           key={item.call_id}
-          className={Styles.callItem}
-          style={{ width: '100%', padding: 0, marginBottom: 5 }}
+          style={{
+            width: '100%',
+            padding: 0,
+            marginBottom: 5,
+            cursor: 'pointer',
+          }}
         >
           <Card
             onClick={() => onSelectCall(item)}
