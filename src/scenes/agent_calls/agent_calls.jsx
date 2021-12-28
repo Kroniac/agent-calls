@@ -30,6 +30,7 @@ function AgentCalls() {
   const appContext = useContext(AppContext);
 
   useEffect(() => {
+    document.title = 'Agent Calls';
     initialSetup.current();
   }, []);
 

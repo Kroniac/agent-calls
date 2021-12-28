@@ -38,7 +38,7 @@ function GetMsgFromRes(res) {
 }
 
 export function GetStatusCode(err) {
-  if (err.response) return err.response.status;
+  if (err?.response) return err.response.status;
   return null;
 }
 

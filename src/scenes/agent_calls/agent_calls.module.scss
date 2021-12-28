@@ -1,10 +1,10 @@
 .root {
   display: flex;
   width: 100%;
-  max-height: calc(100vh);
-  min-height: calc(100vh);
+  max-height: calc(-45px + 100vh);
+  min-height: calc(-45px + 100vh);
   overflow: hidden;
-  padding-top: 20px;
+  padding-top: 7px;
 }
 
 .callsWrapper {
@@ -15,6 +15,16 @@
   @media screen and (max-width: 600px) {
     margin-left: 30px;
   }
+}
+
+.errWrapper {
+  display: flex;
+  width: 100%;
+  max-height: calc(-45px + 100vh);
+  min-height: calc(-45px + 100vh);
+  overflow: hidden;
+  padding-top: 10vh;
+  justify-content: center;
 }
 
 .sortBox {

@@ -1,22 +1,21 @@
 .root {
   display: flex;
   width: 100%;
-  max-height: calc(100vh);
-  min-height: calc(100vh);
+  max-height: calc(-45px + 100vh);
+  min-height: calc(-45px + 100vh);
   overflow: hidden;
-  padding-top: 20px;
+  padding-top: 7px;
 }
 
 .errWrapper {
   display: flex;
   width: 100%;
-  max-height: calc(100vh);
-  min-height: calc(100vh);
+  max-height: calc(-45px + 100vh);
+  min-height: calc(-45px + 100vh);
   overflow: hidden;
   padding-top: 10vh;
   justify-content: center;
 }
-
 
 .callsWrapper {
   overflow-y: auto;
@@ -35,8 +34,9 @@
     margin-bottom: 4px;
     overflow-x: auto;
     flex-wrap: nowrap;
-  
-    h4, h5 {
+
+    h4,
+    h5 {
       margin: 0;
     }
   }

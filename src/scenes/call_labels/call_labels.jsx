@@ -23,6 +23,7 @@ function CallLabels() {
   const appContext = useContext(AppContext);
 
   useEffect(() => {
+    document.title = 'Call Labels';
     initialSetup.current();
   }, []);
 
