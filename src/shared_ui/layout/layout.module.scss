@@ -4,8 +4,28 @@
   padding: 10px;
   background-color: #34495e;
 
+  .logoWrapper {
+    display: flex;
+
+    h1 { 
+      margin: 0px;
+      font-size: large;
+      color: white;
+      line-height: normal;
+    }
+  }
+
+  .logo {
+    height: 25px;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
   .navBarItem {
-    padding: 10px 10px;
+    padding: 12px 10px;
     color: rgba(255, 255, 255, 0.9);
   }
 
@@ -13,6 +33,6 @@
     background-color: rgba(255, 255, 255, 0.2);
     color: white;
     border-style: solid;
-    border-width: 0 0 2px 0px;
+    border-width: 0 0 3px 0px;
   }
 }
