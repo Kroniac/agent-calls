@@ -65,6 +65,12 @@ function ItemsSearchModal({
     onHide();
   };
 
+  const onCloseHandler = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    onHide();
+  };
+
   return (
     <Modal
       title={
@@ -80,10 +86,11 @@ function ItemsSearchModal({
       onOk={onFilterHandler}
       onCancel={onClearAllHandler}
       bodyStyle={{ padding: 12 }}
-      onClose={onHide}
+      onClose={onCloseHandler}
       cancelText="Clear All"
       okText="Search"
-      closeIcon={<Button onClick={onHide}>X</Button>}
+      maskClosable={false}
+      closeIcon={<Button onClick={onCloseHandler}>X</Button>}
     >
       <div
         style={{
