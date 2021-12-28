@@ -51,7 +51,7 @@ function Calls({ calls, selectedCallsById, onSelectCall }) {
                   justifyContent: 'space-between',
                 }}
               >
-                {item.call_id}
+                <div style={{ fontSize: 'small' }}>Call ID: {item.call_id}</div>
                 {item.call_id in selectedCallsById ? (
                   <ImCheckboxChecked color={COLORS.GREEN} />
                 ) : (
