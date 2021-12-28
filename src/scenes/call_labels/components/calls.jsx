@@ -22,7 +22,7 @@ function Calls({ calls, selectedCallsById, onSelectCall }) {
       size="small"
       pagination={{
         showSizeChanger: true,
-        defaultPageSize: 12,
+        defaultPageSize: 18,
       }}
       grid={{
         column: 3,

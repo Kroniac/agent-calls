@@ -11,7 +11,7 @@ function Calls({ calls }) {
       size="small"
       pagination={{
         showSizeChanger: true,
-        defaultPageSize: 15,
+        defaultPageSize: 18,
       }}
       grid={{
         column: 3,
