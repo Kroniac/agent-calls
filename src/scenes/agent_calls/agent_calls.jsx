@@ -131,7 +131,7 @@ function AgentCalls() {
     setLoadingState({ state: 0, data: null });
     history.push({
       pathname: '/agent_calls',
-      search: QueryString.stringify(params),
+      search: QueryString.stringify({ ...params, sortBy }),
     });
 
     FetchAgentCalls(getSanitizedAgentCallsFilters(params))
