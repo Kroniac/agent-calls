@@ -138,7 +138,7 @@ function ItemsSearch({ items, title, inputPlaceholder, onFilter }) {
       </Button>
       <ItemsSearchModal
         isVisible={showSearchModal}
-        items={allItems.current}
+        items={pushSelectedItemsToTop(allItems.current)}
         onFilter={onFilterHandler}
         onHide={onHideSearchModal}
         onClearAll={onClearAll}
