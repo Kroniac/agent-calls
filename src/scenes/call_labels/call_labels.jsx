@@ -18,6 +18,7 @@ function CallLabels() {
   const [calls, setCalls] = useState([]);
   const [selectedCallsById, setSelectedCallsById] = useState({});
   const [loadingState, setLoadingState] = useState({ state: 0, data: null });
+
   const initialSetup = useRef();
 
   const appContext = useContext(AppContext);
@@ -149,6 +150,7 @@ function CallLabels() {
       message.success(
         'Labels Applied But Calls Outdated. Please Refresh Calls',
       );
+    setSelectedCallsById({});
   };
 
   const getSelectedCallsCount = React.useCallback(
