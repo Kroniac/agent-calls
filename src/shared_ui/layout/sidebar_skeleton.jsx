@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { element } from 'prop-types';
 import { AiOutlineSetting, AiOutlineClose } from 'react-icons/ai';
 
-import Styles from './sidebar_skeleton.module.scss';
+import Styles from './layout.module.scss';
 
 function SidebarSkeleton({ children }) {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
