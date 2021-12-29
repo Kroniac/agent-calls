@@ -11,7 +11,7 @@ function Routes() {
     <Switch>
       <Route path="/call_labels" component={CallLabels} />
       <Route path="/agent_calls" component={AgentCalls} />
-      <Redirect to="/call_labels" />
+      <Redirect to="/agent_calls" />
     </Switch>
   );
 }
