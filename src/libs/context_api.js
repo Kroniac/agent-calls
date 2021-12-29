@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { element } from 'prop-types';
 
@@ -15,17 +15,18 @@ export function Provider({ children }) {
     setCallLabelsConfig(config);
   };
 
+  const contextValues = useMemo(
+    () => ({
+      agentCallsConfig,
+      callLabelsConfig,
+      updateAgentCallsConfig,
+      updateCallLabelsConfig,
+    }),
+    [agentCallsConfig, callLabelsConfig],
+  );
+
   return (
-    <AppContext.Provider
-      value={{
-        agentCallsConfig,
-        callLabelsConfig,
-        updateAgentCallsConfig,
-        updateCallLabelsConfig,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+    <AppContext.Provider value={contextValues}>{children}</AppContext.Provider>
   );
 }
 
