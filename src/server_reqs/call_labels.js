@@ -1,6 +1,8 @@
 import ApiUrls from 'src/config/api_urls';
 import { Wraxios } from 'src/libs/networking';
 
+const USER_ID = '24b456';
+
 export const UpdateCallsLabelsReq = submitObj =>
   new Promise((resolve, reject) => {
     Wraxios({
@@ -8,7 +10,7 @@ export const UpdateCallsLabelsReq = submitObj =>
       method: 'POST',
       data: submitObj,
       headers: {
-        user_id: '24b456',
+        user_id: USER_ID,
       },
     })
       .then(resolve)
@@ -20,7 +22,7 @@ export const FetchCallLabels = () =>
     Wraxios({
       url: ApiUrls.labels,
       headers: {
-        user_id: '24b456',
+        user_id: USER_ID,
       },
     })
       .then(resolve)
@@ -32,7 +34,7 @@ export const FetchCalls = () =>
     Wraxios({
       url: ApiUrls.calls,
       headers: {
-        user_id: '24b456',
+        user_id: USER_ID,
       },
     })
       .then(resolve)
