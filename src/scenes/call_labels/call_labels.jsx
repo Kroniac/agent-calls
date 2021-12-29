@@ -8,7 +8,7 @@ import {
   FetchCallLabels,
   FetchCalls,
   UpdateCallsLabelsReq,
-} from 'src/server_reqs/agent_calls';
+} from 'src/server_reqs/call_labels';
 
 import Styles from './call_labels.module.scss';
 import Calls from './components/calls';
