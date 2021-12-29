@@ -134,7 +134,7 @@ function ItemsSearch({ items, title, inputPlaceholder, onFilter }) {
         block
         onClick={onShowMoreAgents}
       >
-        Some More (multi-select)
+        Show All (multi-select)
       </Button>
       <ItemsSearchModal
         isVisible={showSearchModal}
